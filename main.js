@@ -9,12 +9,14 @@ $(document).ready(function () {
         // Validation
         if (name === undefined || name === "") {
            alert("Please enter a name"); 
+           return false;
         }
 
         // Make Ajax Call
         var jqxhr = $.ajax({
-            type: "GET",
-            url: "./controller.php"
+            type: "POST",
+            url: "./controller.php",
+            data: {name: name}
         })
         .done(function handleJQXHR(data) {
             console.log("Data Arrived ", data);

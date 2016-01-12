@@ -1,3 +1,5 @@
 <?php
-    echo "What a lovely day";
+    $name = $_POST["name"];
+    $greeting = exec("python script.py");
+    echo $greeting . " " . $name;
 ?>
