@@ -1,29 +1,32 @@
 
 import json
 import sys
+from pymongo import MongoClient
+from bson import ObjectId
 
-try:
-    name = sys.argv[1]
-    result = name 
-except:
-    result =  "No name argument given"
+# Encode BSON specific values into JSON values
+class JSONEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, ObjectId):
+            return str(o)
+        return json.JSONEncoder.default(self, o)
 
-nodes = [
-    {"id": 1, "label": ''},
-    {"id": 2, "label": ''},
-    {"id": 3, "label": ''},
-    {"id": 4, "label": ''}
-]
+# Connect to Local MongoDB Instance
+client = MongoClient()
+db = client.test
 
-edges = [
-    {"to": 1, "from": 3},
-    {"to": 1, "from": 2},
-    {"to": 2, "from": 4}
-]
+# Retrieve Nodes
+nodes = []
+for node in db.nodes.find():
+    nodes.append(node)
 
-jsonNodes = json.dumps(nodes)
-jsonEdges = json.dumps(edges)
+# Retrieve Edges
+edges = []
+for edge in db.edges.find():
+    edges.append(edge)
 
+jsonNodes = JSONEncoder().encode(nodes)
+jsonEdges = JSONEncoder().encode(edges)
 
 # To pass two JSON collections as 1 string,
 # will be split by client
@@ -32,4 +35,3 @@ result = jsonNodes + "split" + jsonEdges
 # print is a thin wrapper that formats inputs and
 # calls the write function on a given object (default: sys.stdout)
 print result
-# print edges

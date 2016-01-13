@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+    'use strict';
+
     function render(nodes, edges) {
         var container, data, options, network;
         container = document.getElementById("visualization");
