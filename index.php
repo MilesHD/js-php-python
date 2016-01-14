@@ -14,9 +14,9 @@
                    <img src="http://placehold.it/200x100"> 
                 </div>
                 <div class="medusaMenuValidationError">
-                   <div class="medusaError">Please enter a valid reference</div> 
-                   <div class="medusaError">Please enter a number of days back</div> 
-                   <div class="medusaError">Please select at least one source</div> 
+                   <div id="ReferenceError">Please enter a valid reference</div> 
+                   <div id="DaysBackError">Please enter a number of days back</div> 
+                   <div id="SourcesError">Please select at least one source</div> 
                 </div>
                 <div class="medusaMenuControls">
                    <form id="MedusaQuery">

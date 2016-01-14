@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     function render(nodes, edges) {
         var container, data, options, network;
-        container = document.getElementById("visualization");
+        container = document.getElementById("MedusaVis");
         data = {
             nodes: new vis.DataSet(nodes),
             edges: new vis.DataSet(edges)    
@@ -13,24 +13,49 @@ $(document).ready(function () {
         network = new vis.Network(container, data, options);
     }
 
-    $("#submit-ajax-form").click(function handleAjaxForm(evt) {
+    $("#SubmitQuery").click(function handleAjaxForm(evt) {
+        var reference, daysBack, sources, serializedSources;
         evt.preventDefault();
         
         // Get Name
-        var name = $("#name").val().trim();
+        reference = $("#Reference").val().trim();
+        daysBack = $("#DaysBack").val().trim();
+        sources = $('input[name="sources"]:checked').map(function() {
+            return $(this).val();
+        });
+        sources = sources.toArray().slice(0, 2);
 
         // Validation
-        if (name === undefined || name === "") {
-           alert("Please enter a name"); 
-           return false;
+        $(".medusaMenuValidationError div").hide();
+        if (reference === undefined || reference === "") {
+            $("#ReferenceError").show();
+            return false;
+        }
+        if (daysBack === undefined || daysBack === "") {
+            $("#DaysBackError").show();
+            return false;
+        }
+        if (sources.length === 0) {
+            $("#SourcesError").show();
+            return false;
         }
 
-        // Make Ajax Call
+        // serialize for sending
+        serializedSources = sources.toString();
+        console.log(serializedSources);
+
+        // Make Ajax Call to perform CRITS query
         var jqxhr = $.ajax({
             type: "POST",
             url: "./controller.php",
-            data: {name: name}
+            data: {
+                reference: reference,
+                daysBack: daysBack,
+                sources: serializedSources 
+            }
         })
+        // Handle server response, render visualization
+        // with JSON nodes and edges
         .done(function handleJQXHR(data) {
             var splitData, nodes, edges;
             console.log("Data Arrived ", data);
@@ -38,7 +63,7 @@ $(document).ready(function () {
             nodes = JSON.parse(splitData[0]);
             edges = JSON.parse(splitData[1]);
 
-            $("#response").html(data);
+            //$("#response").html(data);
             render(nodes, edges);
 
         });
