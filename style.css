@@ -1,0 +1,90 @@
+.medusa {
+    width: 100%;
+    position: relative;
+    min-height: 550px;
+    margin-bottom: 30px;
+    box-sizing: border-box;
+}
+
+.medusa * {
+    box-sizing: inherit;
+}
+
+/* MENU */
+
+.medusa .medusaMenu {
+    position: absolute;
+    width: 25%;
+    max-width: 250px;
+    height: 100%;
+    padding: 15px;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+}
+
+.medusa .medusaMenu .medusaMenuHeader {
+    text-align: center;
+}
+
+.medusa .medusaMenu .medusaMenuHeader img {
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+.medusa .medusaMenu .medusaMenuValidationError div {
+    font-size: 14px;
+    color: #A94442;
+    display: none;
+}
+
+.medusa .medusaMenu label {
+    display: block;
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+.medusa .medusaMenu input {
+    margin: 10px 0;
+}
+
+.medusa .medusaMenu input[type=checkbox] {
+    margin-left: 5px;
+}
+
+.medusa .medusaMenu .medusaMenuControls .medusaMenuControlsInput {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px;
+    line-height: 1.428;
+    font-size: 12px;
+}
+
+.medusa .medusaMenu .medusaMenuButton {
+    display: inline-block;
+    padding: 6px 12px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.medusa .medusaMenu .medusaMenuButtonSubmit {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+}
+
+.medusa .medusaMenu .medusaMenuButtonClear {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+/* Visulaization */
+.medusa .medusaVis {
+    position: absolute;
+    right: 0;
+    width: 75%;
+    height: 100%;
+}
