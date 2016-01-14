@@ -1,4 +1,6 @@
 
+########### SETUP AND CONFIGURATION ##########
+
 import json
 import sys
 from pymongo import MongoClient
@@ -16,22 +18,38 @@ class JSONEncoder(json.JSONEncoder):
 client = MongoClient()
 db = client.test
 
-# Retrieve Nodes
+
+########### DATA RETRIEVAL ##########
+
+indicators = []
+for ind in db.indicators.find(
+        filter={}, 
+        projection={
+            "status": 1,
+            "source.name": 1,
+            "source.instances.date": 1,
+            "source.instances.reference": 1}):
+    indicators.append(ind)
+
+########### DATA TRANSFORMATION ##########
 nodes = []
-for node in db.nodes.find(filter={}, projection={"_id": 0, "date": 0}):
-    nodes.append(node)
-
-# Retrieve Edges
 edges = []
-for edge in db.edges.find(projection={"_id": 0}):
-    edges.append(edge)
+count = 0
 
-jsonNodes = JSONEncoder().encode(nodes)
-jsonEdges = JSONEncoder().encode(edges)
+for ind in indicators:
+    for src in ind["source"]:
+        for inst in src["instances"]:
+            node = {
+                "id": count,
+                "type": "indicator",
+                "reference": inst['reference']
+            }
+            nodes.append(node)
+            count += 1
 
-# To pass two JSON collections as 1 string,
-# will be split by client
-result = jsonNodes + "split" + jsonEdges
+result = JSONEncoder().encode(nodes)
+
+########### DATA TRANSMISSION ##########
 
 # print is a thin wrapper that formats inputs and
 # calls the write function on a given object (default: sys.stdout)

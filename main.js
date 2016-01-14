@@ -60,12 +60,12 @@ $(document).ready(function () {
         .done(function handleJQXHR(data) {
             var splitData, nodes, edges;
             console.log("Query Completed Successfully!");
-            splitData = data.split("split");
-            nodes = JSON.parse(splitData[0]);
-            edges = JSON.parse(splitData[1]);
+            //splitData = data.split("split");
+            //nodes = JSON.parse(splitData[0]);
+            //edges = JSON.parse(splitData[1]);
 
             $("#ServerOutput").html(data);
-            render(nodes, edges);
+            //render(nodes, edges);
 
         });
     });
