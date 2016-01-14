@@ -43,6 +43,9 @@
             </div>
             <div id="MedusaVis" class="medusaVis">
             </div>
+            <!-- DEVELOPMENT ONLY -->
+            <div id="ServerOutput">
+            </div>
        </div>
         <!--
         <form id="ajax-call">

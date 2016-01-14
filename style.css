@@ -88,3 +88,9 @@
     width: 75%;
     height: 100%;
 }
+
+/* DEVELOPMENT ONLY */
+#ServerOutput {
+    position: absolute;
+    top: 600px;
+}

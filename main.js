@@ -2,6 +2,8 @@ $(document).ready(function () {
 
     'use strict';
 
+    // Draw network visualization from nodes and edges JSON
+    // objects returned from server
     function render(nodes, edges) {
         var container, data, options, network;
         container = document.getElementById("MedusaVis");
@@ -17,7 +19,7 @@ $(document).ready(function () {
         var reference, daysBack, sources, serializedSources;
         evt.preventDefault();
         
-        // Get Name
+        // Get Reference, DaysBack, and Sources Inputs 
         reference = $("#Reference").val().trim();
         daysBack = $("#DaysBack").val().trim();
         sources = $('input[name="sources"]:checked').map(function() {
@@ -40,9 +42,8 @@ $(document).ready(function () {
             return false;
         }
 
-        // serialize for sending
+        // Serialize sources for Ajax Call 
         serializedSources = sources.toString();
-        console.log(serializedSources);
 
         // Make Ajax Call to perform CRITS query
         var jqxhr = $.ajax({
@@ -58,12 +59,12 @@ $(document).ready(function () {
         // with JSON nodes and edges
         .done(function handleJQXHR(data) {
             var splitData, nodes, edges;
-            console.log("Data Arrived ", data);
+            console.log("Query Completed Successfully!");
             splitData = data.split("split");
             nodes = JSON.parse(splitData[0]);
             edges = JSON.parse(splitData[1]);
 
-            //$("#response").html(data);
+            $("#ServerOutput").html(data);
             render(nodes, edges);
 
         });
