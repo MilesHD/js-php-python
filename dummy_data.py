@@ -1,15 +1,16 @@
 #!/usr/bin/env python
 
 from pymongo import MongoClient
+from datetime import datetime
 
 client = MongoClient()
 db = client.test
 
 nodesResult = db.nodes.insert_many([
-    {"id": 1, "label": ''},
-    {"id": 2, "label": ''},
-    {"id": 3, "label": ''},
-    {"id": 4, "label": ''}
+    {"id": 1, "label": '', "date": datetime.utcnow()},
+    {"id": 2, "label": '', "date": datetime.utcnow()},
+    {"id": 3, "label": '', "date": datetime.utcnow()},
+    {"id": 4, "label": '', "date": datetime.utcnow()}
 ]);
 
 edgesResult = db.edges.insert_many([
