@@ -9,10 +9,12 @@ db = client.test
 if db.indicators.count() == 0:
     indicatorsInsertResult = db.indicators.insert_many([
         {
+            "type": "Web",
+            "value": "site",
             "status": "Analyzed",
             "source": [
                 {
-                    "name": "DSIE",
+                    "name": "GOOG",
                     "instances": [
                         {
                             "date": datetime.utcnow(),
@@ -23,10 +25,12 @@ if db.indicators.count() == 0:
             ]
         },
         {
+            "type": "Web",
+            "value": "site",
             "status": "Analyzed",
             "source": [
                 {
-                    "name": "DSIE",
+                    "name": "YHOO",
                     "instances": [
                         {
                             "date": datetime.utcnow(),
@@ -45,10 +49,12 @@ if db.indicators.count() == 0:
             ]
         },
         {
+            "type": "Web",
+            "value": "site",
             "status": "Analyzed",
             "source": [
                 {
-                    "name": "GE",
+                    "name": "MSFT",
                     "instances": [
                         {
                             "date": datetime.utcnow(),
