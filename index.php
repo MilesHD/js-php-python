@@ -30,8 +30,8 @@
 
                         <div class="medusaMenuControlsSources">
                             Sources
-                            <input type="checkbox" name="sources" value="DISE"> DSIE
-                            <input type="checkbox" name="sources" value="GE"> GE 
+                            <input type="checkbox" name="sources" value="ETJF"> ETFJ 
+                            <input type="checkbox" name="sources" value="HF"> HF 
                         </div>
 
                         <div>

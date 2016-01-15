@@ -9,12 +9,12 @@ db = client.test
 if db.indicators.count() == 0:
     indicatorsInsertResult = db.indicators.insert_many([
         {
-            "type": "Web",
-            "value": "site",
+            "type": "Website",
+            "value": "Welcome to Google!",
             "status": "Analyzed",
             "source": [
                 {
-                    "name": "GOOG",
+                    "name": "ETJF",
                     "instances": [
                         {
                             "date": datetime.utcnow(),
@@ -25,12 +25,12 @@ if db.indicators.count() == 0:
             ]
         },
         {
-            "type": "Web",
-            "value": "site",
+            "type": "Website",
+            "value": "Welcome to Yahoo",
             "status": "Analyzed",
             "source": [
                 {
-                    "name": "YHOO",
+                    "name": "ETJF",
                     "instances": [
                         {
                             "date": datetime.utcnow(),
@@ -39,22 +39,18 @@ if db.indicators.count() == 0:
                         {
                             "date": datetime.utcnow(),
                             "reference": "http://google.com"
-                        },
-                        {
-                            "date": datetime.utcnow(),
-                            "reference": "http://microsoft.com"
                         }
                     ]
                 }
             ]
         },
         {
-            "type": "Web",
-            "value": "site",
+            "type": "Website",
+            "value": "Welcome to Kapersky",
             "status": "Analyzed",
             "source": [
                 {
-                    "name": "MSFT",
+                    "name": "ETJF",
                     "instances": [
                         {
                             "date": datetime.utcnow(),
@@ -62,7 +58,87 @@ if db.indicators.count() == 0:
                         },
                         {
                             "date": datetime.utcnow(),
-                            "reference": "http://microsoft.com"
+                            "reference": "http://kapersky.com"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Website",
+            "value": "Welcome to McAffee",
+            "status": "Analyzed",
+            "source": [
+                {
+                    "name": "HF",
+                    "instances": [
+                        {
+                            "date": datetime.utcnow(),
+                            "reference": "http://yahoo.com"
+                        },
+                        {
+                            "date": datetime.utcnow(),
+                            "reference": "http://mcaffee.com"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Website",
+            "value": "Welcome to McAffee/Amazon",
+            "status": "Analyzed",
+            "source": [
+                {
+                    "name": "HF",
+                    "instances": [
+                        {
+                            "date": datetime.utcnow(),
+                            "reference": "http://amazon.com"
+                        },
+                        {
+                            "date": datetime.utcnow(),
+                            "reference": "http://mcaffee.com"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Website",
+            "value": "Welcome to Youtube",
+            "status": "Analyzed",
+            "source": [
+                {
+                    "name": "HF",
+                    "instances": [
+                        {
+                            "date": datetime.utcnow(),
+                            "reference": "http://amazon.com"
+                        },
+                        {
+                            "date": datetime.utcnow(),
+                            "reference": "http://youtube.com"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Website",
+            "value": "Welcome to Amazon",
+            "status": "Analyzed",
+            "source": [
+                {
+                    "name": "HF",
+                    "instances": [
+                        {
+                            "date": datetime.utcnow(),
+                            "reference": "http://google.com"
+                        },
+                        {
+                            "date": datetime.utcnow(),
+                            "reference": "http://amazon.com"
                         }
                     ]
                 }
