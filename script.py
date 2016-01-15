@@ -18,7 +18,6 @@ class JSONEncoder(json.JSONEncoder):
 client = MongoClient()
 db = client.test
 
-
 ########### DATA RETRIEVAL ##########
 
 indicators = []
@@ -34,12 +33,16 @@ for ind in db.indicators.find(
     indicators.append(ind)
 
 ########### DATA TRANSFORMATION ##########
+
 nodes = []
 edges = []
+references = []
 
+# Extract References and create nodes
 for ind in indicators:
     for src in ind["source"]:
         for inst in src["instances"]:
+            references.append(inst["reference"])
             node = {
                 "id": str(ind["_id"]),
                 "type": ind["type"],
@@ -48,10 +51,20 @@ for ind in indicators:
             }
             nodes.append(node)
 
-result = JSONEncoder().encode(nodes)
+# Create Edges
+for ind in indicators:
+    for src in ind["source"]:
+        for inst in src["instances"]:
+            for ref in references:
+                if "reference" in inst and inst["reference"] in references and {"from": str(ind["_id"]), "to": ref} not in edges:
+                    edges.append({"from": str(ind["_id"]), "to": ref})
+
+
+nodes = JSONEncoder().encode(nodes)
+edges = JSONEncoder().encode(edges)
 
 ########### DATA TRANSMISSION ##########
 
 # print is a thin wrapper that formats inputs and
 # calls the write function on a given object (default: sys.stdout)
-print result
+print nodes + "SPLIT" + edges
