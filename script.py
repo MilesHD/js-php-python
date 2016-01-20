@@ -14,6 +14,9 @@ class JSONEncoder(json.JSONEncoder):
             return str(o)
         return json.JSONEncoder.default(self, o)
 
+# Instantiate singleton to use throughout program
+jsonEncoder = JSONEncoder()
+
 # Attempt to retrieve arguments passed in with program call
 try:
     indicator_id = sys.argv[1]
@@ -40,40 +43,49 @@ for ind in db.indicators.find(
             "source.instances.reference": 1}):
     indicators.append(ind)
 
-print indicators
-
 ########### DATA TRANSFORMATION ##########
 
-# nodes = []
-# edges = []
-# references = []
+nodes = []
+edges = []
+references = []
 
-# # Extract References and create nodes
-# for ind in indicators:
-    # for src in ind["source"]:
-        # for inst in src["instances"]:
-            # references.append(inst["reference"])
-            # node = {
-                # "id": str(ind["_id"]),
-                # "value": ind["value"],
-                # "reference": inst["reference"]
-            # }
-            # nodes.append(node)
+# Check if indicator_id exists
+# If yes, add indicator node
+if (len(indicators) > 0):
+    nodes.append({
+        "id": indicator_id,
+        "type": "indicator",
+        "value": indicator_id 
+    })
+else:
+    print "Invalid Indicator Id. No indicator found"
+    sys.exit(0)
+    
+# Extract References and create nodes
+for ind in indicators:
+    for src in ind["source"]:
+        for inst in src["instances"]:
+            references.append(inst["reference"])
+            node = {
+                "id": str(inst["reference"]),
+                "type": "reference",
+                "value": inst["reference"]
+            }
+            nodes.append(node)
 
-# # Create Edges
-# for ind in indicators:
-    # for src in ind["source"]:
-        # for inst in src["instances"]:
-            # for ref in references:
-                # if "reference" in inst and inst["reference"] in references and {"from": str(ind["_id"]), "to": ref} not in edges:
-                    # edges.append({"from": str(ind["_id"]), "to": ref})
+# Create Edges
+for ind in indicators:
+    for src in ind["source"]:
+        for inst in src["instances"]:
+            for ref in references:
+                if "reference" in inst and inst["reference"] in references and {"from": str(ind["_id"]), "to": ref} not in edges:
+                    edges.append({"from": str(ind["_id"]), "to": ref})
 
-
-# nodes = JSONEncoder().encode(nodes)
-# edges = JSONEncoder().encode(edges)
+nodes = JSONEncoder().encode(nodes)
+edges = JSONEncoder().encode(edges)
 
 ########### DATA TRANSMISSION ##########
 
 # print is a thin wrapper that formats inputs and
 # calls the write function on a given object (default: sys.stdout)
-# print nodes + "SPLIT" + edges
+print nodes + "SPLIT" + edges

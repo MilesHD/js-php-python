@@ -65,7 +65,7 @@ $(document).ready(function () {
             edges = JSON.parse(splitData[1]);
 
             $("#ServerOutput").html(data);
-            //render(nodes, edges);
+            render(nodes, edges);
 
         });
     });
