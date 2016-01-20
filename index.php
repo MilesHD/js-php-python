@@ -14,15 +14,15 @@
                    <img src="http://placehold.it/200x100"> 
                 </div>
                 <div class="medusaMenuValidationError">
-                   <div id="ReferenceError">Please enter a valid reference</div> 
+                   <div id="IndicatorError">Please enter a valid indicator</div> 
                    <div id="DaysBackError">Please enter a number of days back</div> 
                    <div id="SourcesError">Please select at least one source</div> 
                 </div>
                 <div class="medusaMenuControls">
                    <form id="MedusaQuery">
-                        <label for="reference"></label>
-                        <input type="text" name="reference" id="Reference" 
-                        class="medusaMenuControlsInput" placeholder="Reference">
+                        <label for="indicator"></label>
+                        <input type="text" name="indicator" id="Indicator" 
+                        class="medusaMenuControlsInput" placeholder="Indicator">
 
                         <label for="daysBack"></label>
                         <input type="number" name="daysBack" id="DaysBack" 

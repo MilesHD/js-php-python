@@ -16,11 +16,11 @@ $(document).ready(function () {
     }
 
     $("#SubmitQuery").click(function handleAjaxForm(evt) {
-        var reference, daysBack, sources, serializedSources;
+        var indicator, daysBack, sources, serializedSources;
         evt.preventDefault();
         
-        // Get Reference, DaysBack, and Sources Inputs 
-        reference = $("#Reference").val().trim();
+        // Get Indicator, DaysBack, and Sources Inputs 
+        indicator = $("#Indicator").val().trim();
         daysBack = $("#DaysBack").val().trim();
         sources = $('input[name="sources"]:checked').map(function() {
             return $(this).val();
@@ -29,8 +29,8 @@ $(document).ready(function () {
 
         // Validation
         $(".medusaMenuValidationError div").hide();
-        if (reference === undefined || reference === "") {
-            $("#ReferenceError").show();
+        if (indicator === undefined || indicator === "") {
+            $("#IndicatorError").show();
             return false;
         }
         if (daysBack === undefined || daysBack === "") {
@@ -50,7 +50,7 @@ $(document).ready(function () {
             type: "POST",
             url: "./controller.php",
             data: {
-                reference: reference,
+                indicator: indicator,
                 daysBack: daysBack,
                 sources: serializedSources 
             }
