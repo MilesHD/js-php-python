@@ -9,8 +9,8 @@ db = client.test
 if db.indicators.count() == 0:
     indicatorsInsertResult = db.indicators.insert_many([
         {
-            "type": "Website",
-            "value": "Welcome to Google!",
+            "_id": "ind1",
+            "value": "ind1",
             "status": "Analyzed",
             "source": [
                 {
@@ -18,15 +18,23 @@ if db.indicators.count() == 0:
                     "instances": [
                         {
                             "date": datetime.utcnow(),
-                            "reference": "http://google.com"
+                            "reference": "sp1"
+                        },
+                        {
+                            "date": datetime.utcnow(),
+                            "reference": "sp2"
+                        },
+                        {
+                            "date": datetime.utcnow(),
+                            "reference": "sp3"
                         }
                     ]
                 }
             ]
         },
         {
-            "type": "Website",
-            "value": "Welcome to Yahoo",
+            "_id": "ind2",
+            "value": "ind2",
             "status": "Analyzed",
             "source": [
                 {
@@ -34,19 +42,19 @@ if db.indicators.count() == 0:
                     "instances": [
                         {
                             "date": datetime.utcnow(),
-                            "reference": "http://yahoo.com"
+                            "reference": "sp1"
                         },
                         {
                             "date": datetime.utcnow(),
-                            "reference": "http://google.com"
+                            "reference": "sp2"
                         }
                     ]
                 }
             ]
         },
         {
-            "type": "Website",
-            "value": "Welcome to Kapersky",
+            "_id": "ind3",
+            "value": "ind3",
             "status": "Analyzed",
             "source": [
                 {
@@ -54,19 +62,19 @@ if db.indicators.count() == 0:
                     "instances": [
                         {
                             "date": datetime.utcnow(),
-                            "reference": "http://yahoo.com"
+                            "reference": "sp1"
                         },
                         {
                             "date": datetime.utcnow(),
-                            "reference": "http://kapersky.com"
+                            "reference": "sp2"
                         }
                     ]
                 }
             ]
         },
         {
-            "type": "Website",
-            "value": "Welcome to McAffee",
+            "_id": "ind4",
+            "value": "ind4",
             "status": "Analyzed",
             "source": [
                 {
@@ -74,19 +82,19 @@ if db.indicators.count() == 0:
                     "instances": [
                         {
                             "date": datetime.utcnow(),
-                            "reference": "http://yahoo.com"
+                            "reference": "sp2"
                         },
                         {
                             "date": datetime.utcnow(),
-                            "reference": "http://mcaffee.com"
+                            "reference": "sp3"
                         }
                     ]
                 }
             ]
         },
         {
-            "type": "Website",
-            "value": "Welcome to McAffee/Amazon",
+            "_id": "ind5",
+            "value": "ind5",
             "status": "Analyzed",
             "source": [
                 {
@@ -94,51 +102,7 @@ if db.indicators.count() == 0:
                     "instances": [
                         {
                             "date": datetime.utcnow(),
-                            "reference": "http://amazon.com"
-                        },
-                        {
-                            "date": datetime.utcnow(),
-                            "reference": "http://mcaffee.com"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "type": "Website",
-            "value": "Welcome to Youtube",
-            "status": "Analyzed",
-            "source": [
-                {
-                    "name": "HF",
-                    "instances": [
-                        {
-                            "date": datetime.utcnow(),
-                            "reference": "http://amazon.com"
-                        },
-                        {
-                            "date": datetime.utcnow(),
-                            "reference": "http://youtube.com"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "type": "Website",
-            "value": "Welcome to Amazon",
-            "status": "Analyzed",
-            "source": [
-                {
-                    "name": "HF",
-                    "instances": [
-                        {
-                            "date": datetime.utcnow(),
-                            "reference": "http://google.com"
-                        },
-                        {
-                            "date": datetime.utcnow(),
-                            "reference": "http://amazon.com"
+                            "reference": "sp3"
                         }
                     ]
                 }

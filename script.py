@@ -24,7 +24,6 @@ indicators = []
 for ind in db.indicators.find(
         filter={}, 
         projection={
-            "type": 1,
             "value": 1,
             "status": 1,
             "source.name": 1,
@@ -45,7 +44,6 @@ for ind in indicators:
             references.append(inst["reference"])
             node = {
                 "id": str(ind["_id"]),
-                "type": ind["type"],
                 "value": ind["value"],
                 "reference": inst["reference"]
             }
