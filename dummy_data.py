@@ -107,5 +107,21 @@ if db.indicators.count() == 0:
                     ]
                 }
             ]
+        },
+        {
+            "_id": "ind6",
+            "value": "ind6",
+            "status": "Analyzed",
+            "source": [
+                {
+                    "name": "HF",
+                    "instances": [
+                        {
+                            "date": datetime.utcnow(),
+                            "reference": "sp4"
+                        }
+                    ]
+                }
+            ]
         }
     ])

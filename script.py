@@ -30,7 +30,11 @@ except IndexError:
 client = MongoClient()
 db = client.test
 
-########### DATA RETRIEVAL ##########
+nodes = []
+edges = []
+references = []
+
+########### QUERY 1 ##########
 
 indicators = []
 for ind in db.indicators.find(
@@ -42,12 +46,6 @@ for ind in db.indicators.find(
             "source.instances.date": 1,
             "source.instances.reference": 1}):
     indicators.append(ind)
-
-########### DATA TRANSFORMATION ##########
-
-nodes = []
-edges = []
-references = []
 
 # Check if indicator_id exists
 # If yes, add indicator node
@@ -81,10 +79,55 @@ for ind in indicators:
                 if "reference" in inst and inst["reference"] in references and {"from": str(ind["_id"]), "to": ref} not in edges:
                     edges.append({"from": str(ind["_id"]), "to": ref})
 
-nodes = JSONEncoder().encode(nodes)
-edges = JSONEncoder().encode(edges)
+########### QUERY 2 ##########
+
+analyzed_indicators = []
+for ind in db.indicators.find(
+        filter={
+            "status": "Analyzed",
+            "source.instances": {
+                "$elemMatch": {
+                    "reference": {"$in": references}
+                }
+            }
+        }, 
+        projection={
+            "value": 1,
+            "status": 1,
+            "source.name": 1,
+            "source.instances.date": 1,
+            "source.instances.reference": 1}):
+    analyzed_indicators.append(ind)
+
+# Create nodes
+for ind in analyzed_indicators:
+    for src in ind["source"]:
+        for inst in src["instances"]:
+            node = {
+                "id": str(ind["_id"]),
+                "type": "indicator",
+                "value": ind["value"]
+            }
+            if (node not in nodes):
+                nodes.append(node)
+
+# Create edges
+for ind in analyzed_indicators:
+    for src in ind["source"]:
+        for inst in src["instances"]:
+            for ref in references:
+                edge = {
+                    "from": str(ind["_id"]),
+                    "to": ref
+                }
+                if inst["reference"] == ref and edge not in edges:
+                    edges.append(edge)
 
 ########### DATA TRANSMISSION ##########
+
+# Serialize nodes and edges by encoding to JSON
+nodes = jsonEncoder.encode(nodes)
+edges = jsonEncoder.encode(edges)
 
 # print is a thin wrapper that formats inputs and
 # calls the write function on a given object (default: sys.stdout)
