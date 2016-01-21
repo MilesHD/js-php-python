@@ -18,7 +18,6 @@ $(document).ready(function () {
            }
            return node;
         });
-
         data = {
             nodes: new vis.DataSet(nodes),
             edges: new vis.DataSet(edges)    
@@ -77,12 +76,29 @@ $(document).ready(function () {
         // with JSON nodes and edges
         .done(function handleJQXHR(data) {
             var splitData, nodes, edges;
-            console.log("Query Completed Successfully!");
+            console.log("AJAX Call Complete");
+
+            // Error Handling
+            $(".medusaMenuValidationError div").hide();
+            if (data.substr(0, 5) === "ERROR") {
+                if (data.substr(7) === "Invalid Indicator Id") {
+                    $("#IndicatorError").show();
+                } else {
+                    $("#UnknownError").show();
+                }
+                return;    
+            }
+
+            // Python script can output one string, so nodes and edges JSON
+            // were concatentated with 'SPLIT' string separating them
             splitData = data.split("SPLIT");
             nodes = JSON.parse(splitData[0]);
             edges = JSON.parse(splitData[1]);
 
+            /********** DEVELOPMENT ONLY **********/
             $("#ServerOutput").html(data);
+            /********** DEVELOPMENT ONLY **********/
+
             render(nodes, edges);
 
         });

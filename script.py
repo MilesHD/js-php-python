@@ -23,7 +23,7 @@ try:
     # days_back = sys.argv[2]
     # sources = sys.argv[3]
 except IndexError:
-    print "Medusa was not called with the proper arguments. Please check your input and try again"
+    print "ERROR: Invalid arguments"
     sys.exit(0)
 
 # Connect to Local MongoDB Instance
@@ -57,7 +57,7 @@ if (len(query1_indicators) > 0):
         "label": indicator_id 
     })
 else:
-    print "Invalid Indicator Id. No indicator found"
+    print "ERROR: Invalid Indicator Id"
     sys.exit(0)
     
 # Extract References and create nodes

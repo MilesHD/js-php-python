@@ -14,9 +14,11 @@
                    <img src="http://placehold.it/200x100"> 
                 </div>
                 <div class="medusaMenuValidationError">
-                   <div id="IndicatorError">Please enter a valid indicator</div> 
-                   <div id="DaysBackError">Please enter a number of days back</div> 
-                   <div id="SourcesError">Please select at least one source</div> 
+                   <div id="IndicatorError">Please enter a valid indicator Id.</div> 
+                   <div id="DaysBackError">Please enter a number of days back.</div> 
+                   <div id="SourcesError">Please select at least one source.</div> 
+                   <div id="UnknownError">Something went wrong. Please check your inputs and
+                   contact the application admin if problem persists.</div> 
                 </div>
                 <div class="medusaMenuControls">
                    <form id="MedusaQuery">
