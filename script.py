@@ -33,10 +33,11 @@ db = client.test
 nodes = []
 edges = []
 references = []
+query1_indicators = []
+query2_indicators = []
 
 ########### QUERY 1 ##########
 
-indicators = []
 for ind in db.indicators.find(
         filter={"_id": indicator_id}, 
         projection={
@@ -45,34 +46,34 @@ for ind in db.indicators.find(
             "source.name": 1,
             "source.instances.date": 1,
             "source.instances.reference": 1}):
-    indicators.append(ind)
+    query1_indicators.append(ind)
 
 # Check if indicator_id exists
 # If yes, add indicator node
-if (len(indicators) > 0):
+if (len(query1_indicators) > 0):
     nodes.append({
         "id": indicator_id,
         "type": "indicator",
-        "value": indicator_id 
+        "label": indicator_id 
     })
 else:
     print "Invalid Indicator Id. No indicator found"
     sys.exit(0)
     
 # Extract References and create nodes
-for ind in indicators:
+for ind in query1_indicators:
     for src in ind["source"]:
         for inst in src["instances"]:
             references.append(inst["reference"])
             node = {
                 "id": str(inst["reference"]),
                 "type": "reference",
-                "value": inst["reference"]
+                "label": inst["reference"]
             }
             nodes.append(node)
 
 # Create Edges
-for ind in indicators:
+for ind in query1_indicators:
     for src in ind["source"]:
         for inst in src["instances"]:
             for ref in references:
@@ -81,7 +82,6 @@ for ind in indicators:
 
 ########### QUERY 2 ##########
 
-analyzed_indicators = []
 for ind in db.indicators.find(
         filter={
             "status": "Analyzed",
@@ -97,22 +97,22 @@ for ind in db.indicators.find(
             "source.name": 1,
             "source.instances.date": 1,
             "source.instances.reference": 1}):
-    analyzed_indicators.append(ind)
+    query2_indicators.append(ind)
 
 # Create nodes
-for ind in analyzed_indicators:
+for ind in query2_indicators:
     for src in ind["source"]:
         for inst in src["instances"]:
             node = {
                 "id": str(ind["_id"]),
                 "type": "indicator",
-                "value": ind["value"]
+                "label": ind["value"]
             }
             if (node not in nodes):
                 nodes.append(node)
 
 # Create edges
-for ind in analyzed_indicators:
+for ind in query2_indicators:
     for src in ind["source"]:
         for inst in src["instances"]:
             for ref in references:

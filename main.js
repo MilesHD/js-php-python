@@ -7,11 +7,29 @@ $(document).ready(function () {
     function render(nodes, edges) {
         var container, data, options, network;
         container = document.getElementById("MedusaVis");
+
+        // Color nodes based on their type 
+        nodes = nodes.map(function (node) {
+           node.color = {};
+           if (node.type === "reference") {
+                node.color.background = "yellow";
+           } else {
+                node.color.background = "green";
+           }
+           return node;
+        });
+
         data = {
             nodes: new vis.DataSet(nodes),
             edges: new vis.DataSet(edges)    
         };
-        options = {};
+        options = {
+            nodes: {
+                color: {
+                    background: 'green'
+                }
+            }
+        };
         network = new vis.Network(container, data, options);
     }
 
