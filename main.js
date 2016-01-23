@@ -4,17 +4,27 @@ $(document).ready(function () {
 
     // Draw network visualization from nodes and edges JSON
     // objects returned from server
-    function render(nodes, edges) {
+    function render(nodes, edges, indicator) {
         var container, data, options, network;
+        var colors = {
+            yellow: '#FFFF00',
+            green: '#4AA02C',
+            blue: '#3BB9FF'
+        };
         container = document.getElementById("MedusaVis");
 
         // Color nodes based on their type 
         nodes = nodes.map(function (node) {
            node.color = {};
-           if (node.type === "reference") {
-                node.color.background = "yellow";
+           // User input indicator id
+           if (node.id === indicator) {
+                node.color.background = colors.yellow;
+           // Reference node     
+           } else if (node.type === "reference") {
+                node.color.background = colors.green;
+           // Indicator node
            } else {
-                node.color.background = "green";
+                node.color.background = colors.blue;
            }
            return node;
         });
@@ -99,7 +109,7 @@ $(document).ready(function () {
             $("#ServerOutput").html(data);
             /********** DEVELOPMENT ONLY **********/
 
-            render(nodes, edges);
+            render(nodes, edges, indicator);
 
         });
     });
