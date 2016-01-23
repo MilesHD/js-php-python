@@ -17,15 +17,15 @@ if db.indicators.count() == 0:
                     "name": "ETJF",
                     "instances": [
                         {
-                            "date": datetime.utcnow(),
+                            "date": datetime(2016, 1, 22),
                             "reference": "sp1"
                         },
                         {
-                            "date": datetime.utcnow(),
+                            "date": datetime(2016, 1, 22),
                             "reference": "sp2"
                         },
                         {
-                            "date": datetime.utcnow(),
+                            "date": datetime(2016, 1, 22),
                             "reference": "sp3"
                         }
                     ]
@@ -41,11 +41,11 @@ if db.indicators.count() == 0:
                     "name": "ETJF",
                     "instances": [
                         {
-                            "date": datetime.utcnow(),
+                            "date": datetime(2016, 1, 21),
                             "reference": "sp1"
                         },
                         {
-                            "date": datetime.utcnow(),
+                            "date": datetime(2016, 1, 21),
                             "reference": "sp2"
                         }
                     ]
@@ -61,11 +61,11 @@ if db.indicators.count() == 0:
                     "name": "ETJF",
                     "instances": [
                         {
-                            "date": datetime.utcnow(),
+                            "date": datetime(2016, 1, 20),
                             "reference": "sp1"
                         },
                         {
-                            "date": datetime.utcnow(),
+                            "date": datetime(2016, 1, 20),
                             "reference": "sp2"
                         }
                     ]
@@ -81,11 +81,11 @@ if db.indicators.count() == 0:
                     "name": "HF",
                     "instances": [
                         {
-                            "date": datetime.utcnow(),
+                            "date": datetime(2016, 1, 20),
                             "reference": "sp2"
                         },
                         {
-                            "date": datetime.utcnow(),
+                            "date": datetime(2016, 1, 20),
                             "reference": "sp3"
                         }
                     ]
@@ -101,7 +101,7 @@ if db.indicators.count() == 0:
                     "name": "HF",
                     "instances": [
                         {
-                            "date": datetime.utcnow(),
+                            "date": datetime(2016, 1, 19),
                             "reference": "sp3"
                         }
                     ]
@@ -117,7 +117,7 @@ if db.indicators.count() == 0:
                     "name": "HF",
                     "instances": [
                         {
-                            "date": datetime.utcnow(),
+                            "date": datetime(2016, 1, 18),
                             "reference": "sp4"
                         }
                     ]

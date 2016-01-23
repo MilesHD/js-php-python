@@ -20,7 +20,7 @@ jsonEncoder = JSONEncoder()
 # Attempt to retrieve arguments passed in with program call
 try:
     indicator_id = sys.argv[1]
-    # days_back = sys.argv[2]
+    days_back = int(sys.argv[2])
     # sources = sys.argv[3]
 except IndexError:
     print "ERROR: Invalid arguments"
@@ -82,11 +82,13 @@ for ind in query1_indicators:
 
 ########### QUERY 2 ##########
 
+dt = datetime.datetime.utcnow() - datetime.timedelta(days=days_back)
 for ind in db.indicators.find(
         filter={
             "status": "Analyzed",
             "source.instances": {
                 "$elemMatch": {
+                    "date": {"$gt": dt},
                     "reference": {"$in": references}
                 }
             }
