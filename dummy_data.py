@@ -123,5 +123,25 @@ if db.indicators.count() == 0:
                     ]
                 }
             ]
+        },
+        {
+            "_id": "ind7",
+            "value": "ind7",
+            "status": "Analyzed",
+            "source": [
+                {
+                    "name": "BOOP",
+                    "instances": [
+                        {
+                            "date": datetime(2016, 1, 18),
+                            "reference": "sp4"
+                        },
+                        {
+                            "date": datetime(2016, 1, 18),
+                            "reference": "sp3"
+                        }
+                    ]
+                }
+            ]
         }
     ])

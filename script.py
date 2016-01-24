@@ -21,7 +21,7 @@ jsonEncoder = JSONEncoder()
 try:
     indicator_id = sys.argv[1]
     days_back = int(sys.argv[2])
-    # sources = sys.argv[3]
+    sources = sys.argv[3].split(',')
 except IndexError:
     print "ERROR: Invalid arguments"
     sys.exit(0)
@@ -68,7 +68,9 @@ for ind in query1_indicators:
             node = {
                 "id": str(inst["reference"]),
                 "type": "reference",
-                "label": inst["reference"]
+                "label": inst["reference"],
+                # Development
+                "source": src["name"]
             }
             nodes.append(node)
 
@@ -101,17 +103,21 @@ for ind in db.indicators.find(
             "source.instances.reference": 1}):
     query2_indicators.append(ind)
 
+print query2_indicators
+
 # Create nodes
 for ind in query2_indicators:
     for src in ind["source"]:
         for inst in src["instances"]:
-            node = {
-                "id": str(ind["_id"]),
-                "type": "indicator",
-                "label": ind["value"]
-            }
-            if (node not in nodes):
-                nodes.append(node)
+            # Only create nodes for our requested sources
+            if (src["name"] in sources):
+                node = {
+                    "id": str(ind["_id"]),
+                    "type": "indicator",
+                    "label": ind["value"],
+                }
+                if (node not in nodes):
+                    nodes.append(node)
 
 # Create edges
 for ind in query2_indicators:
