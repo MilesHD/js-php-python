@@ -5,9 +5,10 @@
     $indicator = $_POST["indicator"];
     $daysBack = $_POST["daysBack"];
     $sources = $_POST["sources"];
+    $linksOnly = $_POST["linksOnly"];
 
     // run script.py, passing in arguments
-    $response = exec("python script.py " . $indicator . " " . $daysBack . " " . $sources);
+    $response = exec("python script.py " . $indicator . " " . $daysBack . " " . $sources . " " . $linksOnly);
 
     // pass the values written to stdout from script.py
     echo $response;

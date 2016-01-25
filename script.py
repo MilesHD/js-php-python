@@ -22,6 +22,7 @@ try:
     indicator_id = sys.argv[1]
     days_back = int(sys.argv[2])
     sources = sys.argv[3].split(',')
+    links_only = sys.argv[4]
 except IndexError:
     print "ERROR: Invalid arguments"
     sys.exit(0)
@@ -103,8 +104,6 @@ for ind in db.indicators.find(
             "source.instances.reference": 1}):
     query2_indicators.append(ind)
 
-print query2_indicators
-
 # Create nodes
 for ind in query2_indicators:
     for src in ind["source"]:
@@ -124,12 +123,31 @@ for ind in query2_indicators:
     for src in ind["source"]:
         for inst in src["instances"]:
             for ref in references:
-                edge = {
-                    "from": str(ind["_id"]),
-                    "to": ref
-                }
-                if inst["reference"] == ref and edge not in edges:
-                    edges.append(edge)
+                # Only create edges for our requested sources
+                if (src["name"] in sources):
+                    edge = {
+                        "from": str(ind["_id"]),
+                        "to": ref
+                    }
+                    if inst["reference"] == ref and edge not in edges:
+                        edges.append(edge)
+
+# Filter indicators that are only connected to one reference
+if links_only == "yes":
+    node_edges = {}
+    for edge in edges:
+        # First occurnce of indicator
+        if edge['from'] not in node_edges:
+            node_edges[edge['from']] = 1
+        else:
+            node_edges[edge['from']] += 1
+    
+    # Retrieve all the keys from node_edges list that had a value greater than 1, as a list
+    link_node_names = filter(lambda x: node_edges[x] > 1, node_edges)
+    # Filter nodes to include only node id's with more than one link, and is of type 'indicator'
+    nodes = filter(lambda x: x['type'] == 'reference' or x['id'] in link_node_names, nodes)
+    # Filter edges to include only from id's with more than one link
+    edges = filter(lambda x: x['from'] in link_node_names, edges)
 
 ########### DATA TRANSMISSION ##########
 

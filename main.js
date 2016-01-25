@@ -43,7 +43,7 @@ $(document).ready(function () {
     }
 
     $("#SubmitQuery").click(function handleAjaxForm(evt) {
-        var indicator, daysBack, sources, serializedSources;
+        var indicator, daysBack, sources, serializedSources, linksOnly;
         evt.preventDefault();
         
         // Get Indicator, DaysBack, and Sources Inputs 
@@ -53,6 +53,12 @@ $(document).ready(function () {
             return $(this).val();
         });
         sources = sources.toArray().slice(0, 2);
+        linksOnly = $('input[name="links-only"]:checked').map(function() {
+            return $(this).val();
+        })[0];
+        if (linksOnly !== 'yes') {
+            linksOnly = 'no';
+        }
 
         // Validation
         $(".medusaMenuValidationError div").hide();
@@ -79,7 +85,8 @@ $(document).ready(function () {
             data: {
                 indicator: indicator,
                 daysBack: daysBack,
-                sources: serializedSources 
+                sources: serializedSources,
+                linksOnly: linksOnly
             }
         })
         // Handle server response, render visualization

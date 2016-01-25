@@ -36,6 +36,11 @@
                             <input type="checkbox" name="sources" value="HF"> HF 
                         </div>
 
+                        <div class="medusaMenuControlsLinksOnly">
+                            Links Only
+                            <input type="checkbox" name="links-only" value="yes">  
+                        </div>
+
                         <div>
                             <button id="SubmitQuery" class="medusaMenuButton medusaMenuButtonSubmit">Submit</button>
                             <button id="CleaerForm" class="medusaMenuButton medusaMenuButtonClear">Clear</button>
@@ -45,7 +50,6 @@
             </div>
             <div id="MedusaVis" class="medusaVis">
             </div>
-            <!-- DEVELOPMENT ONLY -->
             <div id="ServerOutput">
             </div>
        </div>
